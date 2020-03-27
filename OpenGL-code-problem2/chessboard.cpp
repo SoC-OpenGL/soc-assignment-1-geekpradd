@@ -62,13 +62,13 @@ int main(){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* w = glfwCreateWindow(800, 600, "Triangle", NULL, NULL);
+    GLFWwindow* w = glfwCreateWindow(width, height, "Chessboard", NULL, NULL);
 
     glfwMakeContextCurrent(w);
     glewExperimental = GL_TRUE;
     glewInit();
 
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, width, height);
     glfwSetFramebufferSizeCallback(w, reshape_viewport);
     glfwSetKeyCallback(w, key_callback);
 
