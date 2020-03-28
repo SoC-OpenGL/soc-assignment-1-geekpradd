@@ -29,14 +29,11 @@ void genVertices(){
   int i = 0; float angle = 0;
   float pi = atan(1)*4;
   float increm = 2*pi/no_of_segments;
-  while(i<9*no_of_segments){
+  while(i<6*no_of_segments){
     vertices[i] = radius*cos(angle);i++;
     vertices[i] = radius*sin(angle)*aspect_ratio;i++;
-    vertices[i] = 0.0f; i++;
     vertices[i] = radius*cos(angle+increm); i++;
     vertices[i] = radius*sin(angle+increm)*aspect_ratio; i++;
-    vertices[i] = 0.0f; i++;
-    vertices[i] = 0.0f; i++;
     vertices[i] = 0.0f; i++;
     vertices[i] = 0.0f; i++;
     angle += increm;
@@ -44,14 +41,14 @@ void genVertices(){
 }
 
 int main(){
-    vertices = new float[9*no_of_segments];
+    vertices = new float[6*no_of_segments];
     genVertices();
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* w = glfwCreateWindow(width, height, "Astroid", NULL, NULL);
+    GLFWwindow* w = glfwCreateWindow(width, height, "Disc", NULL, NULL);
 
     glfwMakeContextCurrent(w);
     glewExperimental = GL_TRUE;
@@ -71,9 +68,9 @@ int main(){
     glBindVertexArray(VAO); 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     std::cout << sizeof(vertices) << std::endl;
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*(9*no_of_segments), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*(6*no_of_segments), vertices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     while (!glfwWindowShouldClose(w)){

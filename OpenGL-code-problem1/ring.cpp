@@ -32,14 +32,11 @@ void genVertices(float* target){
   int i = 0; float angle = 0;
   float pi = atan(1)*4;
   float increm = 2*pi/no_of_segments;
-  while(i<9*no_of_segments){
+  while(i<6*no_of_segments){
     target[i] = radius*cos(angle);i++;
     target[i] = radius*sin(angle)*aspect_ratio;i++;
-    target[i] = 0.0f; i++;
     target[i] = radius*cos(angle+increm); i++;
     target[i] = radius*sin(angle+increm)*aspect_ratio; i++;
-    target[i] = 0.0f; i++;
-    target[i] = 0.0f; i++;
     target[i] = 0.0f; i++;
     target[i] = 0.0f; i++;
     angle += increm;
@@ -47,8 +44,8 @@ void genVertices(float* target){
 }
 
 int main(){
-    vertices_out = new float[9*no_of_segments];
-    vertices_in =  new float[9*no_of_segments];
+    vertices_out = new float[6*no_of_segments];
+    vertices_in =  new float[6*no_of_segments];
     genVertices(vertices_out);
     radius -= gap;
     genVertices(vertices_in);
@@ -76,23 +73,25 @@ int main(){
 
     glBindVertexArray(VAO_out); 
     glBindBuffer(GL_ARRAY_BUFFER, VBO_out);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*(9*no_of_segments), vertices_out, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*(6*no_of_segments), vertices_out, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     glBindVertexArray(VAO_in);
     glBindBuffer(GL_ARRAY_BUFFER, VBO_in);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*(9*no_of_segments), vertices_in, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float)*(6*no_of_segments), vertices_in, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     while (!glfwWindowShouldClose(w)){
         glClear(GL_COLOR_BUFFER_BIT);  
-        glBindVertexArray(VAO_out);
-        shdr->use();
         shdr->setInt("black", 0);
+        shdr->use();
+
+        glBindVertexArray(VAO_out);
+
         glDrawArrays(GL_TRIANGLES, 0, 3*no_of_segments);
 
         glBindVertexArray(VAO_in);
