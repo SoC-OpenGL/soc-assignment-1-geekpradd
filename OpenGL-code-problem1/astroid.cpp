@@ -20,7 +20,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 int no_of_segments = 1000;
 float *vertices;
-float radius = 0.5f;
+float a = 0.5f;
 int width = 800;
 int height = 600;
 float aspect_ratio = ((float) width)/height;
@@ -30,11 +30,11 @@ void genVertices(){
   float pi = atan(1)*4;
   float increm = 2*pi/no_of_segments;
   while(i<9*no_of_segments){
-    vertices[i] = radius*cos(angle);i++;
-    vertices[i] = radius*sin(angle)*aspect_ratio;i++;
+    vertices[i] = a*cos(angle)*cos(angle)*cos(angle);i++;
+    vertices[i] = a*sin(angle)*sin(angle)*sin(angle)*aspect_ratio;i++;
     vertices[i] = 0.0f; i++;
-    vertices[i] = radius*cos(angle+increm); i++;
-    vertices[i] = radius*sin(angle+increm)*aspect_ratio; i++;
+    vertices[i] = a*cos(angle+increm)*cos(angle+increm)*cos(angle+increm); i++;
+    vertices[i] = a*sin(angle+increm)*sin(angle+increm)*sin(angle+increm)*aspect_ratio; i++;
     vertices[i] = 0.0f; i++;
     vertices[i] = 0.0f; i++;
     vertices[i] = 0.0f; i++;
@@ -51,7 +51,7 @@ int main(){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* w = glfwCreateWindow(width, height, "Astroid", NULL, NULL);
+    GLFWwindow* w = glfwCreateWindow(width, height, "Disc", NULL, NULL);
 
     glfwMakeContextCurrent(w);
     glewExperimental = GL_TRUE;
